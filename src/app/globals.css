@@ -12,15 +12,85 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Hero heading: scales with viewport on all screen sizes */
+.hero-heading {
+  font-size: clamp(48px, 25vw, 198px);
+  line-height: 0.85;
+  letter-spacing: -0.07em;
+}
+
+@media (min-width: 768px) {
+  .hero-heading {
+    font-size: clamp(60px, 13.75vw, 198px);
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+}
+
+/* "Hello i'm" aligns with left edge of "Harvey" on desktop */
+@media (min-width: 768px) {
+  .hero-text-wrapper {
+    width: fit-content;
+    margin: 0 auto;
+  }
+}
+
+/* About section large type — scales to fill width */
+.about-type {
+  font-size: 32px;
+}
+
+@media (min-width: 768px) {
+  .about-type {
+    font-size: 6.67vw;
+  }
+}
+
+/* Deliverables heading — scales with viewport */
+.deliverables-heading {
+  font-size: 32px;
+}
+
+@media (min-width: 768px) {
+  .deliverables-heading {
+    font-size: 6.67vw;
+  }
+}
+
+/* Selected Work heading */
+.selected-work-heading {
+  font-size: 32px;
+}
+
+@media (min-width: 768px) {
+  .selected-work-heading {
+    font-size: 6.67vw;
+  }
+}
+
+/* Testimonials heading — needs to be huge */
+.testimonials-heading {
+  font-size: 13.75vw !important;
+}
+
+/* News section rotated heading */
+.news-heading {
+  font-size: 64px;
+}
+
+/* Footer H.Studio logo */
+.footer-logo {
+  font-size: 20vw !important;
+}
+
+/* Blurred image overlay — only visible at the bottom, fading in */
+.hero-blur-mask {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 60%, black 90%);
+  mask-image: linear-gradient(to bottom, transparent 60%, black 90%);
 }
