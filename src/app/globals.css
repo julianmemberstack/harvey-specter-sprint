@@ -20,8 +20,8 @@ body {
 
 /* Hero heading: scales with viewport on all screen sizes */
 .hero-heading {
-  font-size: clamp(48px, 25vw, 198px);
-  line-height: 0.85;
+  font-size: clamp(48px, 18vw, 198px);
+  line-height: 0.95;
   letter-spacing: -0.07em;
 }
 
@@ -84,13 +84,101 @@ body {
   font-size: 64px;
 }
 
+/* About page hero heading */
+.about-hero-heading {
+  font-size: clamp(48px, 12vw, 160px);
+}
+
+/* Services page hero heading */
+.services-hero-heading {
+  font-size: clamp(48px, 13vw, 180px);
+}
+
+/* Projects page hero heading */
+.projects-hero-heading {
+  font-size: clamp(48px, 16vw, 220px);
+}
+
+/* News page hero heading */
+.news-page-heading {
+  font-size: clamp(48px, 14vw, 200px);
+}
+
 /* Footer H.Studio logo */
 .footer-logo {
   font-size: 20vw !important;
 }
 
-/* Blurred image overlay — only visible at the bottom, fading in */
-.hero-blur-mask {
-  -webkit-mask-image: linear-gradient(to bottom, transparent 60%, black 90%);
-  mask-image: linear-gradient(to bottom, transparent 60%, black 90%);
+/* Nav link hover — underline slides in from left */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+
+/* Default magnetic button colors (outside nav) — black bg, white text, white fill */
+.btn-label {
+  color: #fff;
+}
+.btn-fill {
+  background: #fff;
+}
+
+/* Sticky nav — color switching based on data-theme */
+nav[data-theme="light"] .nav-text {
+  color: #000;
+  transition: color 0.3s ease;
+}
+nav[data-theme="dark"] .nav-text {
+  color: #fff;
+  transition: color 0.3s ease;
+}
+
+/* Nav button — light theme: black bg, white text */
+nav[data-theme="light"] .nav-btn-wrap a {
+  background: #000;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+nav[data-theme="light"] .nav-btn-wrap .btn-fill {
+  background: #fff;
+}
+nav[data-theme="light"] .nav-btn-wrap .btn-label {
+  color: #fff;
+  transition: color 0.3s ease;
+}
+
+/* Nav button — dark theme: white bg, black text */
+nav[data-theme="dark"] .nav-btn-wrap a {
+  background: #fff;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+nav[data-theme="dark"] .nav-btn-wrap .btn-fill {
+  background: #000;
+}
+nav[data-theme="dark"] .nav-btn-wrap .btn-label {
+  color: #000;
+  transition: color 0.3s ease;
+}
+
+
+/* Backdrop blur overlay — strongest at the bottom, no blur above 50% */
+.hero-blur-overlay {
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  -webkit-mask-image: linear-gradient(to top, black 0%, transparent 50%);
+  mask-image: linear-gradient(to top, black 0%, transparent 50%);
 }
