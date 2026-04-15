@@ -1,7 +1,24 @@
 import Image from "next/image";
 import MobileMenu from "./components/MobileMenu";
+import { sanityFetch } from "@/sanity/lib/live";
+import { urlFor } from "@/sanity/lib/image";
 
-export default function Home() {
+type PortfolioItem = {
+  _id: string;
+  title: string;
+  image: { asset: { _ref: string } };
+  tags: string[];
+  order: number;
+};
+
+const PORTFOLIO_QUERY = `*[_type == "portfolio"] | order(order asc) { _id, title, image, tags, order }`;
+
+export default async function Home() {
+  const { data } = await sanityFetch({ query: PORTFOLIO_QUERY });
+  const portfolio = data as PortfolioItem[];
+
+  const leftItems = portfolio.filter((_: PortfolioItem, i: number) => i % 2 === 0);
+  const rightItems = portfolio.filter((_: PortfolioItem, i: number) => i % 2 === 1);
   return (
     <main className="font-[family-name:var(--font-inter)]">
       {/* ─── Hero Section ─── */}
@@ -362,18 +379,15 @@ export default function Home() {
           <div className="flex flex-col md:flex-row gap-6 md:gap-6">
             {/* Left column */}
             <div className="flex-1 flex flex-col gap-6 md:gap-[117px]">
-              <ProjectCard
-                img="/work-1.jpg"
-                title="Surfers paradise"
-                tags={["Social Media", "Photography"]}
-                aspectClass="aspect-[670/744]"
-              />
-              <ProjectCard
-                img="/work-2.jpg"
-                title="Cyberpunk caffe"
-                tags={["Social Media", "Photography"]}
-                aspectClass="aspect-[670/699]"
-              />
+              {leftItems.map((item, i) => (
+                <ProjectCard
+                  key={item._id}
+                  img={urlFor(item.image).width(1340).url()}
+                  title={item.title}
+                  tags={item.tags ?? []}
+                  aspectClass={i % 2 === 0 ? "aspect-[670/744]" : "aspect-[670/699]"}
+                />
+              ))}
 
               {/* CTA box with corner brackets — desktop only */}
               <div className="hidden md:block relative py-3 max-w-[465px]">
@@ -398,18 +412,15 @@ export default function Home() {
 
             {/* Right column — offset down on desktop */}
             <div className="flex-1 flex flex-col gap-6 md:gap-[117px] md:pt-[240px]">
-              <ProjectCard
-                img="/work-3.jpg"
-                title="Agency 976"
-                tags={["Social Media", "Photography"]}
-                aspectClass="aspect-[670/699]"
-              />
-              <ProjectCard
-                img="/work-4.jpg"
-                title="Minimal Playground"
-                tags={["Social Media", "Photography"]}
-                aspectClass="aspect-[670/744]"
-              />
+              {rightItems.map((item, i) => (
+                <ProjectCard
+                  key={item._id}
+                  img={urlFor(item.image).width(1340).url()}
+                  title={item.title}
+                  tags={item.tags ?? []}
+                  aspectClass={i % 2 === 0 ? "aspect-[670/699]" : "aspect-[670/744]"}
+                />
+              ))}
             </div>
           </div>
 
